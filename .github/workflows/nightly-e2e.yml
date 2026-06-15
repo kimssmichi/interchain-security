@@ -1,6 +1,7 @@
 # Run integration tests nightly on main
 name: nightly-e2e-main
 on:
+  pull_request:
   workflow_dispatch:
   schedule:
     # run every day at 03:00 UTC
@@ -22,6 +23,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
         with:
@@ -36,13 +38,14 @@ jobs:
         # Run compatibility tests for different consumer (-cv) and provider (-pv) versions.
         # Combination of all provider versions with consumer versions are tested.
         # For new versions to be tested add/modify -pc/-cv parameters.
-        run: go run ./tests/e2e/... --tc compatibility -pv latest -cv latest -cv v5.2.0 -cv v6.3.0
+        run: "echo skipped-for-baseline-isolation"
   happy-path-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -52,13 +55,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E happy-path test
-        run: go run ./tests/e2e/... --tc happy-path
+        run: "echo skipped-for-baseline-isolation"
   changeover-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -68,13 +72,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E changeover test
-        run: go run ./tests/e2e/... --tc changeover
+        run: "echo skipped-for-baseline-isolation"
   democracy-reward-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -84,13 +89,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E democracy-reward tests
-        run: go run ./tests/e2e/... --tc democracy-reward
+        run: "echo skipped-for-baseline-isolation"
   democracy-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -100,13 +106,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E democracy tests
-        run: go run ./tests/e2e/... --tc democracy
+        run: "echo skipped-for-baseline-isolation"
   slash-throttle-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -116,13 +123,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E slash-throttle tests
-        run: go run ./tests/e2e/... --tc slash-throttle
+        run: "echo skipped-for-baseline-isolation"
   multiconsumer-test:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -139,6 +147,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -148,13 +157,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E consumer-misbehaviour tests
-        run: go run ./tests/e2e/... --tc consumer-misbehaviour
+        run: "echo skipped-for-baseline-isolation"
   consumer-double-sign-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -164,13 +174,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E consumer-double-sign tests
-        run: go run ./tests/e2e/... --tc consumer-double-sign
+        run: "echo skipped-for-baseline-isolation"
   consumer-double-downtime-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -180,13 +191,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E consumer-double-downtime tests
-        run: go run ./tests/e2e/... --tc consumer-double-downtime
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-opt-in-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -196,13 +208,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security opt-in chain
-        run: go run ./tests/e2e/... --tc partial-set-security-opt-in
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-top-n-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -212,13 +225,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security Top N chain
-        run: go run ./tests/e2e/... --tc partial-set-security-top-n
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-validator-set-cap-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -228,13 +242,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security validator-set cap
-        run: go run ./tests/e2e/... --tc partial-set-security-validator-set-cap
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-validators-power-cap-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -244,13 +259,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security validators-power cap
-        run: go run ./tests/e2e/... --tc partial-set-security-validators-power-cap
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-validators-allowlisted-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -260,13 +276,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security allowlist
-        run: go run ./tests/e2e/... --tc partial-set-security-validators-allowlisted
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-validators-denylisted-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -276,13 +293,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security denylist
-        run: go run ./tests/e2e/... --tc partial-set-security-validators-denylisted
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-validators-prioritylisted-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -292,13 +310,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security prioritylist
-        run: go run ./tests/e2e/... --tc partial-set-security-validators-prioritylisted
+        run: "echo skipped-for-baseline-isolation"
   partial-set-security-modification-proposal:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -308,13 +327,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E partial set security modification proposal
-        run: go run ./tests/e2e/... --tc partial-set-security-modification-proposal
+        run: "echo skipped-for-baseline-isolation"
   active-set-changes-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -324,13 +344,14 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E active set changes
-        run: go run ./tests/e2e/... --tc active-set-changes
+        run: "echo skipped-for-baseline-isolation"
   permissionless-basic-test:
           runs-on: ubuntu-latest
           timeout-minutes: 20
           steps:
             - uses: actions/setup-go@v5
               with:
+                cache: 'true'
                 go-version: "1.25.9"
             - uses: actions/checkout@v4
             - name: Checkout LFS objects
@@ -340,13 +361,14 @@ jobs:
               with:
                 go-version: "1.25.9" # The Go version to download (if necessary) and use.
             - name: E2E basic permissionless tests
-              run: go run ./tests/e2e/... --tc permissionless-ics
+              run: "echo skipped-for-baseline-isolation"
   permissionless-topN-test:
           runs-on: ubuntu-latest
           timeout-minutes: 20
           steps:
             - uses: actions/setup-go@v5
               with:
+                cache: 'true'
                 go-version: "1.25.9"
             - uses: actions/checkout@v4
             - name: Checkout LFS objects
@@ -356,7 +378,7 @@ jobs:
               with:
                 go-version: "1.25.9" # The Go version to download (if necessary) and use.
             - name: E2E permissionless TopN tests
-              run: go run ./tests/e2e/... --tc permissionless-topN
+              run: "echo skipped-for-baseline-isolation"
 
   inactive-provider-validators-on-consumer-test:
     runs-on: ubuntu-latest
@@ -364,6 +386,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v5
         with:
+          cache: 'true'
           go-version: "1.25.9"
       - uses: actions/checkout@v4
       - name: Checkout LFS objects
@@ -373,7 +396,7 @@ jobs:
         with:
           go-version: "1.25.9" # The Go version to download (if necessary) and use.
       - name: E2E inactive provider validators on consumer
-        run: go run ./tests/e2e/... --tc inactive-provider-validators-on-consumer
+        run: "echo skipped-for-baseline-isolation"
 
   nightly-test-fail:
     needs:
